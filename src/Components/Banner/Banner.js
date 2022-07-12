@@ -13,12 +13,12 @@ function Banner() {
           </div>
           <div className="otherQuickOptions">
             
-            <div className="cars">
+          
               
-            <a rel data-aut-id href='/cars'>
+            
             <span>cars</span>
-            </a>
-            </div>
+            
+            
             
 
             <span>Motorcy...</span>
