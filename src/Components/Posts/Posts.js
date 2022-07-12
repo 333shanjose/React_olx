@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useContext,useState,useEffect } from 'react';
 
 import Heart from '../../assets/Heart';
+import { firebasecontext } from '../../context/firebasecontext';
+import {postcontext} from '../../context/viewpost';
+import {useHistory} from "react-router-dom"
 import './Post.css';
 
 function Posts() {
-
+const{firebase}=useContext(firebasecontext)
+const[Products,setProducts]=useState([])
+const{setPost}=useContext(postcontext)
+const history=useHistory()
+useEffect(()=>{
+  firebase.firestore().collection('products').get().then((snapshot)=>{
+    const Allpost=snapshot.docs.map((product)=>{
+      return{
+      ...product.data(),
+      id:product.id
+      
+      }
+      
+    },[])
+    setProducts(Allpost)
+  })
+})
   return (
     <div className="postParentDiv">
       <div className="moreView">
@@ -13,24 +32,38 @@ function Posts() {
           <span>View more</span>
         </div>
         <div className="cards">
-          <div
+         
+          {Products.map((product)=>{
+          
+            return  <div
             className="card"
+          
+            onClick={()=>{
+              setPost(product)
+              history.push('/view')
+          }}
           >
             <div className="favorite">
               <Heart></Heart>
             </div>
             <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
+              <img src={product.url} alt="" />
             </div>
             <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
+              <p className="rate">&#x20B9; {product.Price}</p>
               <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
+              <p className="name">{product.Name}</p>
             </div>
             <div className="date">
-              <span>Tue May 04 2021</span>
+              <span>{product.date}</span>
             </div>
           </div>
+          })
+        }
+          
+          
+        
+          
         </div>
       </div>
       <div className="recommendations">

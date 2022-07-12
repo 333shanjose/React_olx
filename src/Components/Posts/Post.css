@@ -30,6 +30,7 @@
   overflow-x: scroll;
   overflow-y: hidden;
 }
+  
 
 .card {
   margin-right: 15px;
@@ -40,12 +41,13 @@
   display: inline-block;
   cursor: pointer;
 }
-
 .card .favorite {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
+
+
 
 .card .image {
   display: flex;
